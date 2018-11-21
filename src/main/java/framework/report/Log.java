@@ -37,5 +37,5 @@ public class Log {
 
     public static void validationFail(String message){failRazon = message;}
 
-    public static void testFailRazon(){logger.error("xxxxxx " + failRazon + " xxxxxx");}
+    public static void testFailReason(){logger.error("xxxxxx " + failRazon + " xxxxxx");}
 }

@@ -14,27 +14,23 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 import java.util.List;
 
-import static java.io.File.separator;
-
 public class Utils {
-	
+
 	public static final int pageTimeOut = Integer.valueOf(FrameworkProperties.getTimeout()).intValue();
-	
+
 	public static WebElement findElement(WebDriver driver, By selector, int timeOut, boolean visibility) {
-		if(visibility) {
+		if (visibility) {
 			waitForElementVisibility(driver, selector, timeOut);
-		}
-		else {
+		} else {
 			waitForElementPresence(driver, selector, timeOut);
 		}
 		return driver.findElement(selector);
 	}
-	
+
 	public static List<WebElement> findElements(WebDriver driver, By selector, int timeOut, boolean visibility) {
-		if(visibility) {
+		if (visibility) {
 			waitForAllElementsVisibility(driver, selector, timeOut);
-		}
-		else {
+		} else {
 			waitForAllElementsPresence(driver, selector, timeOut);
 		}
 		return driver.findElements(selector);
@@ -64,7 +60,7 @@ public class Utils {
 			wait.until(ExpectedConditions.visibilityOf(element));
 		}
 	}
-	
+
 	public static void waitForAllElementsVisibility(WebDriver driver, By locator, int timeOut) {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(timeOut))
 				.ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class)
@@ -107,9 +103,6 @@ public class Utils {
 		wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
-	/**
-	 * This method is used for an Hybrid app.
-	 */
 	public static void waitForElementPresence(WebDriver driver, By locator) {
 		waitForElementPresence(driver, locator, pageTimeOut);
 	}
@@ -120,7 +113,7 @@ public class Utils {
 				.ignoring(ElementNotVisibleException.class).ignoring(WebDriverException.class);
 		wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
-	
+
 	public static void waitForAllElementsPresence(WebDriver driver, By locator, int timeOut) {
 		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(timeOut))
 				.ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class)
@@ -128,9 +121,13 @@ public class Utils {
 		wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
 	}
 
-
 	/**
-	 * This method return boolean variable.
+	 * Is Element Visible
+	 * @param driver
+	 * @param element
+	 * @param timeOut
+	 * @return boolean
+	 * @author carlos.cadena
 	 */
 	public static boolean isElementVisible(WebDriver driver, WebElement element, int timeOut) {
 		try {
@@ -149,6 +146,15 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * Is Element visible
+	 * @param driver
+	 * @param elements
+	 * @param index
+	 * @param timeOut
+	 * @return boolean
+	 * @author carlos.cadena
+	 */
 	public static boolean isElementVisible(WebDriver driver, List<MobileElement> elements, int index, int timeOut) {
 		try {
 			return new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(timeOut))
@@ -166,6 +172,14 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * Is Element Enabled
+	 * @param driver
+	 * @param element
+	 * @param timeOut
+	 * @return boolean
+	 * @author carlos.cadena
+	 */
 	public static boolean isElementEnabled(WebDriver driver, WebElement element, int timeOut) {
 		try {
 			return new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(timeOut))
@@ -182,7 +196,15 @@ public class Utils {
 		}
 	}
 
-	public static boolean isElementEnabled(WebDriver driver, List<MobileElement> elements, int index, int timeOut) {
+	/**
+	 * Is Element Enabled
+	 * @param driver
+	 * @param elements
+	 * @param index
+	 * @param timeOut
+	 * @return boolean
+	 */
+	public static boolean isElementEnabled(WebDriver driver, List<WebElement> elements, int index, int timeOut) {
 		try {
 			return new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(timeOut))
 					.ignoring(NoSuchElementException.class).ignoring(ElementNotVisibleException.class)
@@ -278,57 +300,5 @@ public class Utils {
 		} catch (TimeoutException e) {
 			return false;
 		}
-	}
-
-	/**
-	 * Takes screenshot
-	 * 
-	 * @param screenshotTitle
-	 * @param saveDirectory
-	 * @param extension
-	 *            > provide a valid format e.g .png or .jpeg
-	 * @author carlos.cadena
-	 */
-	public static void takeScreenshot(WebDriver driver, String screenshotTitle, String saveDirectory, String extension) {
-		String pathString = saveDirectory + screenshotTitle + extension;
-		takeScreenshot(driver, pathString);
-	}
-
-	/**
-	 * Takes screenshot using an specific absolute path
-	 * 
-	 * @param screenshotPath
-	 * @author carlos.cadena
-	 */
-	public static void takeScreenshot(WebDriver driver, String screenshotPath) {
-		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		File picture = new File(screenshotPath);
-		picture.setReadable(true);
-		if (picture.exists()) {
-			picture.delete();
-		}
-		screenshot.renameTo(picture);
-	}
-
-	/**
-	 * This method is used to wait until a file is downloaded.
-	 */
-	public static void waitForFileDownload(String downloadDirectory) {
-		// falta Implementacion
-	}
-
-	public static String firefoxSeleniumDriver() {
-		File srcApp = new File("resources" + separator + "geckodriver.exe");
-		return srcApp.getAbsolutePath();
-	}
-
-	public static String chromeSeleniumDriver() {
-		File srcApp = new File("resources" + separator + "chromedriver.exe");
-		return srcApp.getAbsolutePath();
-	}
-
-	public static String edgeSeleniumDriver() {
-		File srcApp = new File("resources" + separator + "MicrosoftWebDriver.exe");
-		return srcApp.getAbsolutePath();
 	}
 }

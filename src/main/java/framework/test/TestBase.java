@@ -84,7 +84,7 @@ public abstract class TestBase {
 			if (suiteResult == true) {
 				suiteResult = false;
 			}
-			if ((Log.failRazon != null && !Log.failRazon.isEmpty())) Log.testFailRazon();
+			if ((Log.failRazon != null && !Log.failRazon.isEmpty())) Log.testFailReason();
 			Log.testFail(context.getName());
 			Utils.takeScreenshot(WebDriverFacade.getDriver(), imagePath);
 			getReport().fail(result.getThrowable().getMessage(), MediaEntityBuilder.createScreenCaptureFromBase64String(new String(Base64.getEncoder().encode(Files.readAllBytes(new File(imagePath).toPath())))).build());

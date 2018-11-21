@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="80-20 Tests">
+	<listeners>
+		<listener class-name="framework.report.ReportListener" />
+		<listener class-name="framework.test.ExecutionListener" />
+	</listeners>
+
+    <!-- login tests-->
+    <test name="TC5293_Login" ><classes><class name="demo.AutomationDemoTests" /></classes></test>
+</suite>

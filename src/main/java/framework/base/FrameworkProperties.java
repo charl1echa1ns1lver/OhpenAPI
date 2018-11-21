@@ -124,7 +124,35 @@ public class FrameworkProperties {
 		}
 		return System.getProperty("APPLITOOLS_APIKEY");
 	}
+	
+	/**
+	 * Return PARALLEL variable, and if null 'parallel' property value is returned
+	 * @return the property value
+	 * @author carlos.cadena
+	 */
+	public static String getParallel() {
+		if(System.getProperty("PARALLEL") == null)
+		{
+			return props.getProperty("parallel");
+		}
+		return System.getProperty("PARALLEL");
+	}
+	
+	/**
+	 * Return PARALLEL_TYPE variable, and if null 'parallel.type' property value is returned
+	 * @return the property value
+	 * @author carlos.cadena
+	 */
+	public static String getParallelType() {
+		if(System.getProperty("PARALLEL_TYPE") == null)
+		{
+			return props.getProperty("parallel.type");
+		}
+		return System.getProperty("PARALLEL_TYPE");
+	}
 
 
+
+	
 
 	}

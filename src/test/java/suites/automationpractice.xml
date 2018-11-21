@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="AutomationDemoTests">
+	<listeners>
+		<listener class-name="framework.report.ReportListener" />
+	</listeners>
+
+    <test name="Purchase Article Test" >
+    <parameter name="article" value="xxxxx"></parameter>
+    <classes><class name="demo.AutomationDemoTests" /></classes></test>
+</suite>

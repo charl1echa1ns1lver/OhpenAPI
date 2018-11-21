@@ -3,16 +3,21 @@ package demo;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class AutomationDemoTests {
+import framework.base.FrameworkProperties;
+import framework.base.WebDriverFacade;
+import framework.test.TestBase;
+
+public class AutomationDemoTests extends TestBase {
 	
 
+    @Parameters({"article"})
     @Test( 	groups = {"demo"},
             priority = 1,
-            testName="Purchase article test",
-            description=" Purchase article test with different articles " )
-    @Parameters(value = {"environment","language"})
-    public void testArticlePurchase(String articleName, String language){
-    	
+            testName="Purchase Article Test",
+            description=" Purchase article test with different articles" )
+    public void testArticlePurchase(String article){
+    	WebDriverFacade.navigateTo("google.com");
+    	WebDriverFacade.navigateTo(FrameworkProperties.getBaseUrl());
     }
 
 }

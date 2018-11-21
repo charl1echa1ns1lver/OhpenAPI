@@ -7,3 +7,4 @@ out/
 /lib
 *.jar
 *.project
+/test-output

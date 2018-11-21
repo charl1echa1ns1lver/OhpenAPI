@@ -12,8 +12,6 @@ import framework.base.Utils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,19 +24,7 @@ public class WebDriverFacade {
     	return webDriver.get();
     }
 
-    //region Driver Definition
-
-
-    /**
-     * This method is used to initialize the driver.
-     */
     public static void createDriver(String size){
-    	final String URL_STRING = "http://127.0.0.1:4723/wd/hub";
-        try {
-            URL url = new URL(URL_STRING);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
         switch (FrameworkProperties.getBrowser().toUpperCase()){
             case "FIREFOX":
                 firefoxDriverInitialize();
@@ -71,7 +57,7 @@ public class WebDriverFacade {
     }
 
     /**
-     * This method is used to initialize the Firefox driver.
+     *  initialize the Firefox driver.
      */
     public static void firefoxDriverInitialize(){
         WebDriverManager.firefoxdriver().setup();
@@ -79,7 +65,7 @@ public class WebDriverFacade {
     }
 
     /**
-     * This method is used to initialize the Chrome driver.
+     *  initialize the Chrome driver.
      */
     public static void chromeDriverInitialize(){
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -95,7 +81,7 @@ public class WebDriverFacade {
     }
 
     /**
-     * This method is used to initialize the Microsoft EDGE driver.
+     *  initialize the Microsoft EDGE driver.
      */
     public static void edgeDriverInitialize(){
     	WebDriverManager.edgedriver().setup();
@@ -106,14 +92,14 @@ public class WebDriverFacade {
 
  
     /**
-     * This method is used to maximize the browser windows.
+     *  maximize the browser windows.
      */
     public static void maximizeWindows(){
     	getDriver().manage().window().maximize();
     }
 
     /**
-     * This method is used to resize the browser windows.
+     *  resize the browser windows.
      */
     public static void resizeWindows(int width, int height){
         Dimension resolution = new Dimension(width, height);
@@ -121,21 +107,29 @@ public class WebDriverFacade {
     }
 
     /**
-     * This method is used to refresh the current windows.
+     *  refresh the current windows.
      */
     public static void refreshCurrentWindow(int secondsToWait){
     	getDriver().navigate().refresh();
     }
 
     /**
-     * This method is used to navigate to the previous windows.
+     *  navigate to the previous windows.
      */
     public static void clickNavigateBackButton(int secondsToWait){
     	getDriver().navigate().back();
     }
     
     /**
-     * This method is used to take a screenshot.
+     * Navigate to url
+     * @param url
+     */
+    public static void navigateTo(String url){
+    	getDriver().get(url);
+    }
+    
+    /**
+     *  take a screenshot.
      */
     public static void takeScreenshot(String screenshotName, String saveDirectory){
         File screenshot = ((TakesScreenshot)getDriver()).getScreenshotAs(OutputType.FILE);
@@ -172,14 +166,14 @@ public class WebDriverFacade {
 	}
 
     /**
-     * This method is used to close the current windows.
+     *  close the current windows.
      */
     public static void closeCurrentWindow(){
         getDriver().close();
     }
 
     /**
-     * This method is used to close the entire driver.
+     *  close the entire driver.
      */
     public static void shutDown(){
         getDriver().manage().deleteAllCookies();
@@ -191,13 +185,13 @@ public class WebDriverFacade {
     //region Driver Get Methods
 
     /**
-     * This method is used to get the current page URL.
+     *  get the current page URL.
 	 * @return String
      */
     public static String getPageURL() { return getDriver().getCurrentUrl();}
 
     /**
-     * This method is used to get the current page title.
+     *  get the current page title.
 	 * @return String
      */
     public static String getPageTitle() { return getDriver().getTitle();}
@@ -243,7 +237,7 @@ public class WebDriverFacade {
 	}
 	
 	/**
-	 * Find Element for Mobile
+	 * Find Element
 	 * @param locator 
 	 * @param timeOut 
 	 * @param visibility
@@ -255,7 +249,7 @@ public class WebDriverFacade {
 	}
 	
 	/**
-	 * Find Elements for Mobile
+	 * Find Elements
 	 * @param locator 
 	 * @param timeOut 
 	 * @param visibility
@@ -267,7 +261,7 @@ public class WebDriverFacade {
     }
 	
 	/**
-	 * This method is used to check if an element is present with timeout
+	 * check if an element is present with timeout
 	 */
 	public static boolean isElementPresent(By locator) {
 		return Utils.isElementPresent(getDriver(), locator, pageTimeOut);

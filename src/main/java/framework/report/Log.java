@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 public class Log {
 
     public static Logger logger;
-    public static String failRazon;
+    public static String failReason;
 
     public static void testStart(String testName){
         logger.info("*************** " + testName + " Inicio ***************");
@@ -35,7 +35,7 @@ public class Log {
         logger.info(String.format(message,parameter));
     }
 
-    public static void validationFail(String message){failRazon = message;}
+    public static void validationFail(String message){failReason = message;}
 
-    public static void testFailReason(){logger.error("xxxxxx " + failRazon + " xxxxxx");}
+    public static void testFailReason(){logger.error("xxxxxx " + failReason + " xxxxxx");}
 }

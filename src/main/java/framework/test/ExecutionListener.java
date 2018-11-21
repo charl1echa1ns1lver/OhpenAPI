@@ -25,14 +25,7 @@ public class ExecutionListener implements IAlterSuiteListener {
 	 */
 	private void alterParallel(XmlSuite suite)
 	{
-		if (System.getProperty("parallel") != null && System.getProperty("threadCount") != null) {
-			suite.setParallel(ParallelMode.getValidParallel(System.getProperty("parallel")));
-			suite.setThreadCount(Integer.valueOf(System.getProperty("threadCount")).intValue());
-		}
-
-		else {
-			suite.setParallel(ParallelMode.getValidParallel(FrameworkProperties.props.getProperty("parallel.type")));
-			suite.setThreadCount(Integer.valueOf(FrameworkProperties.props.getProperty("parallel.devices")));
-		}
+			suite.setParallel(ParallelMode.getValidParallel(FrameworkProperties.getParallelType()));
+			suite.setThreadCount(Integer.valueOf(FrameworkProperties.getParallel()).intValue());
 	}
 }

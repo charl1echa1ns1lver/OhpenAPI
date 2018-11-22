@@ -7,12 +7,13 @@ import framework.base.FrameworkProperties;
 import framework.base.WebDriverFacade;
 import framework.report.Log;
 
-
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.ThreadContext;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -28,7 +29,6 @@ import java.util.Base64;
 public abstract class TestBase {
 	
 	private Eyes eyes;
-    // This is your api key, make sure you use it in all your tests.
 
 	public static ThreadLocal<ExtentTest> report = new ThreadLocal<ExtentTest>();
 	private static final String screenshots = new File(System.getProperty("user.dir")).getAbsolutePath() + File.separator + "screenshots" + File.separator; 
@@ -64,9 +64,10 @@ public abstract class TestBase {
 		System.setProperty("Log4jContextSelector", "org.apache.logging.log4j.core.async.AsyncLoggerContextSelector");
 	}
 
-	@BeforeTest
+	@BeforeMethod
 	public void setUpPage(ITestContext context, Method method) {
         ThreadContext.put("threadName", context.getName());
+        Log.logger = LogManager.getLogger(getClass());
         Log.testStart(context.getName());
         Log.testDescription(method.getAnnotation(Test.class).description());
 		WebDriverFacade.createDriver("FULL");

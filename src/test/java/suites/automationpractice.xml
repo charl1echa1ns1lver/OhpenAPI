@@ -2,7 +2,8 @@
 
 <suite name="AutomationDemoTests">
 	<listeners>
-		<listener class-name="framework.report.ReportListener" />
+		<listener class-name="framework.report.ReportListener"/>
+	    <listener class-name="framework.test.ExecutionListener"/>
 	</listeners>
 
     <test name="Purchase Article Test" >

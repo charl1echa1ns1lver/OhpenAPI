@@ -92,7 +92,7 @@ public abstract class TestBase {
 			e.printStackTrace();
 			getReport().info("There was an error capturing screenshot > " + e.getMessage() + " caused by > " + e.getCause().getMessage());
 		}
-			WebDriverFacade.getDriver().quit();
+			WebDriverFacade.shutDown();
 			Log.testEnd(context.getName());
 	}
 	

@@ -123,9 +123,13 @@ public class WebDriverFacade {
     /**
      * Navigate to url
      * @param url
+     * @return Page instance
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
      */
-    public static void navigateTo(String url){
+    public static <T extends BasePage> T navigateTo(Class<T> page, String url) throws InstantiationException, IllegalAccessException{
     	getDriver().get(url);
+    	return page.newInstance();
     }
     
     /**
@@ -249,6 +253,31 @@ public class WebDriverFacade {
 	}
 	
 	/**
+	 * Find Element on a element container
+	 * @param locator 
+	 * @param timeOut 
+	 * @param visibility
+	 * @return WebElement
+	 * @author carlos.cadena
+	 */
+	public static WebElement findElement(WebElement container, By locator, boolean visibility) {
+		return findElement(container, locator, pageTimeOut , visibility);
+	}
+	
+	
+	/**
+	 * Find Element on a element container
+	 * @param locator 
+	 * @param timeOut 
+	 * @param visibility
+	 * @return WebElement
+	 * @author carlos.cadena
+	 */
+	public static WebElement findElement(WebElement container, By locator, int timeOut, boolean visibility) {
+		return Utils.findElement(container, locator, timeOut, visibility);
+	}
+	
+	/**
 	 * Find Elements
 	 * @param locator 
 	 * @param timeOut 
@@ -285,5 +314,25 @@ public class WebDriverFacade {
 
 	public static boolean isElementEnabled(List<WebElement> elements, int index) {
 		return isElementEnabled(elements, index, pageTimeOut);
+	}
+	
+	public static void waitForElementVisibility(By locator) {
+		waitForElementVisibility(locator, pageTimeOut);
+	}
+	
+	public static void waitForElementVisibility(By locator, int timeout) {
+		Utils.waitForElementVisibility(getDriver(), locator, timeout);
+	}
+	
+	public static void waitForElementPresence(By locator) {
+		waitForElementPresence(locator, pageTimeOut);
+	}
+	
+	public static void waitForElementPresence(By locator, int timeout) {
+		Utils.waitForElementPresence(getDriver(), locator, timeout);
+	}
+	
+	public static boolean isAttributePresent(By locator, String attribute, String value, boolean contains) {
+		return Utils.isAttributePresentOnElement(getDriver(), locator, attribute, value, contains, pageTimeOut);
 	}
 }

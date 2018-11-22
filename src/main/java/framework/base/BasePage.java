@@ -7,24 +7,23 @@ import org.openqa.selenium.support.PageFactory;
 
 import framework.report.Log;
 
-public class BasePage {
-
+public abstract class BasePage {
 	
-	 protected BasePage(){
-	        PageFactory.initElements(WebDriverFacade.getDriver(), this);
-	        Log.logger = LogManager.getLogger(getClass());
-	    }
-	    
-		protected BasePage(By locator) {
-			Log.logger = LogManager.getLogger(getClass());
-			String pageError = "Page did not load after waiting for " + WebDriverFacade.pageTimeOut
-					+ " seconds for main element to be present";
-			if (WebDriverFacade.isElementPresent(locator)) {
-		        PageFactory.initElements(WebDriverFacade.getDriver(), this);
-			} else {
-				Log.testFail(pageError);
-				throw new NoSuchElementException(pageError);
-			}
+	private By mainLocator;
+	
+	public abstract By setMainLocator();
+
+	public BasePage() {
+		mainLocator = setMainLocator();
+		Log.logger = LogManager.getLogger(getClass());
+		String pageError = "Page did not load after waiting for " + WebDriverFacade.pageTimeOut
+				+ " seconds for main element to be present";
+		if (WebDriverFacade.isElementPresent(mainLocator)) {
+			PageFactory.initElements(WebDriverFacade.getDriver(), this);
+		} else {
+			Log.testFail(pageError);
+			throw new NoSuchElementException(pageError);
 		}
+	}
 
 }

@@ -14,7 +14,6 @@ public class SearchFlightPage extends BasePage {
 	private final String buttonSearchFlightLocator = "div.search_head button[type='submit']";
 	private final String containerFlights = "table[class*='flight-listing'] tr";
 	private final String buttonBookFlight = "button#bookbtn";
-
 	
 	@FindBy(css = buttonSearchFlightLocator)
 	private WebElement buttonSearchFlight;
@@ -38,5 +37,6 @@ public class SearchFlightPage extends BasePage {
 		WebDriverFacade.findElement(allFlights().get(0), By.cssSelector(buttonBookFlight), true).click();
 		return new CompleteBookingPage();
 	}
+
 
 }

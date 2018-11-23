@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<testng.version>6.10</testng.version>
 		<appium.version>6.0.0</appium.version>
-		<suiteXmlFile></suiteXmlFile>
+		<suiteXmlFile>./src/test/java/suites/phptravels.xml</suiteXmlFile>
 	</properties>
 
 	<dependencies>

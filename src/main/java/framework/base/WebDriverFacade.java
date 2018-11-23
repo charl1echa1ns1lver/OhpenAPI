@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import framework.base.FrameworkProperties;
 import framework.base.Utils;
@@ -332,7 +334,27 @@ public class WebDriverFacade {
 		Utils.waitForElementPresence(getDriver(), locator, timeout);
 	}
 	
+	public static void waitForElementVisibility(WebElement element, int timeout) {
+		Utils.waitForElementVisibility(getDriver(), element, timeout);
+	}
+	
+	public static void waitForElementVisibility(WebElement element) {
+		waitForElementVisibility(element, pageTimeOut);
+	}
+	
 	public static boolean isAttributePresent(By locator, String attribute, String value, boolean contains) {
 		return Utils.isAttributePresentOnElement(getDriver(), locator, attribute, value, contains, pageTimeOut);
+	}
+	
+	public static void acceptAlert() {
+		WebDriverWait wait = new WebDriverWait(getDriver(), 5000);
+		wait.until(ExpectedConditions.alertIsPresent());
+		Alert alert = getDriver().switchTo().alert();
+		alert.accept();
+	}
+	
+	public static void clickJavascript(WebElement element) {
+		JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+		executor.executeScript("arguments[0].click();", element);
 	}
 }

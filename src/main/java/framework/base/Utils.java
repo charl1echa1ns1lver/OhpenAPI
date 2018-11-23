@@ -352,11 +352,11 @@ public class Utils {
 		try {
 			return new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(timeout))
 					.ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class)
-					.ignoring(WebDriverException.class).until(new Function<WebDriver, Boolean>() {
+					.ignoring(WebDriverException.class).ignoring(ElementNotVisibleException.class).until(new Function<WebDriver, Boolean>() {
 						public Boolean apply(WebDriver arg) {
 							WebElement element = arg.findElement(locator);
 							if (element != null) {
-								return contains ?  element.getAttribute(attribute).contains(value) : element.getAttribute(attribute).equals(value);
+								return (contains ? element.getAttribute(attribute).contains(value) : element.getAttribute(attribute).equals(value));
 							}
 							return false;
 						}

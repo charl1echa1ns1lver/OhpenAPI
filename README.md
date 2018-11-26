@@ -61,8 +61,10 @@ A Report generated using Extent Reports is created after each execution that can
 
 ./test-output with the name AutomationReport_YYYY-MM-DD(hh.mm)
 
-NOTE ABOUT ALTERNATIVE 1:
+NOTE about alternative 1:
 
 On pom.xml a WebDriverManager dependency was included and when a driver gets initialized it recognizes the chrome, firefox or edge version you have installed in your machine. If you are working with the latest Chrome version in your machine you might experience this new bug
 
 https://github.com/SeleniumHQ/selenium/issues/6317
+
+For the latest version of Firefox the Select method selectByVisibleText was throwing Element Not Interactable exception

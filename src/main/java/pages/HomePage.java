@@ -10,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 
 import framework.base.BasePage;
 import framework.base.WebDriverFacade;
+import framework.report.Log;
 
 public class HomePage extends BasePage {
 
@@ -62,12 +63,14 @@ public class HomePage extends BasePage {
 	
 	public void enterDepature(String departure) {
 		WebDriverFacade.waitForElementVisibility(textDeparture);
+		Log.logger.info("Entering Departure " + departure + "to search");
 		textDeparture.sendKeys(departure);
 		WebDriverFacade.findElementIfVisible(By.xpath(String.format(searchResultLocator, departure))).click();
 	}
 	
 	public void enterDestination(String destination) {
 		WebDriverFacade.waitForElementVisibility(textDestination);
+		Log.logger.info("Entering Destination " + destination + "to search");
 		textDestination.sendKeys(destination);
 		WebDriverFacade.findElementIfVisible(By.xpath(String.format(searchResultLocator, destination))).click();
 	}

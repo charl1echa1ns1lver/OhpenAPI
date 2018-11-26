@@ -70,7 +70,6 @@ public class ReportListener implements ITestListener, ISuiteListener {
 	public void onStart(ISuite suite) {
 		extent = ExtentManager.getInstance(suite.getName());
 		extent.setSystemInfo("Browser", FrameworkProperties.getBrowser());
-        extent.setSystemInfo("Browser Version", FrameworkProperties.getBrowserVersion());
 		parentTest = extent.createTest(suite.getName());
 	}
 

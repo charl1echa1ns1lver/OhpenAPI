@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import framework.base.BasePage;
 import framework.base.WebDriverFacade;
+import framework.report.Log;
 
 public class CompleteBookingPage extends BasePage {
 	
@@ -40,7 +41,7 @@ public class CompleteBookingPage extends BasePage {
 	@FindBy(css = "div.form-group button[type='submit']")
 	private WebElement buttonConfirmThisBooking;
 	
-	@FindBy(css = "(//td[contains(@class,'booking-deposit')])[3]/following-sibling::td/strong")
+	@FindBy(xpath = "(//td[contains(@class,'booking-deposit')])[3]/following-sibling::td/strong")
 	private WebElement spanFlightCost;
 
 
@@ -56,24 +57,29 @@ public class CompleteBookingPage extends BasePage {
 	
 	public void enterLastName(String lastName) {
 		WebDriverFacade.waitForElementVisibility(textboxLastName);
+		Log.logger.info("Entering Last Name '" + lastName + "' on Booking information");
 		textboxLastName.sendKeys(lastName);
 	}
 	
 	public void enterFirstName(String firstName) {
 		WebDriverFacade.waitForElementVisibility(textboxFirstName);
+		Log.logger.info("Entering First Name '" + firstName + "' on Booking information");
 		textboxFirstName.sendKeys(firstName);
 	}
 	
 	public void enterPhone(String mobile) {
 		WebDriverFacade.waitForElementVisibility(textboxMobile);
+		Log.logger.info("Entering Phone '" + mobile + "' on Booking information");
 		textboxMobile.sendKeys(mobile);
 	}
 	
 	
 	public void enterEmail(String email) {
 		WebDriverFacade.waitForElementVisibility(textboxEmail);
+		Log.logger.info("Entering Email '" + email + "' on Booking information");
 		textboxEmail.sendKeys(email);
 		WebDriverFacade.waitForElementVisibility(textboxConfirmEmail);
+		Log.logger.info("Entering Email confirmation '" + email + "' on Booking information");
 		textboxConfirmEmail.sendKeys(email);
 	}
 	

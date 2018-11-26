@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import framework.base.FrameworkProperties;
 import framework.base.Utils;
+import framework.report.Log;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.io.File;
@@ -181,9 +182,16 @@ public class WebDriverFacade {
     /**
      *  close the entire driver.
      */
-    public static void shutDown(){
-        getDriver().manage().deleteAllCookies();
+    public static void shutdown(){
+    	try {
+    	getDriver().close();
         getDriver().quit();
+    	}
+    	catch(Exception e)
+    	{
+    		Log.logger.debug(" Issue closing driver, trying re retry..." +  e.getMessage());
+            getDriver().quit();
+    	}
     }
 
     //endregion
@@ -356,5 +364,9 @@ public class WebDriverFacade {
 	public static void clickJavascript(WebElement element) {
 		JavascriptExecutor executor = (JavascriptExecutor) getDriver();
 		executor.executeScript("arguments[0].click();", element);
+	}
+	
+	public static void scrollToElementView(WebElement element) {
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 }

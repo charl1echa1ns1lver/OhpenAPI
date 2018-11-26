@@ -68,9 +68,9 @@ public abstract class TestBase {
 	public void setUpPage(ITestContext context, Method method) {
         ThreadContext.put("threadName", context.getName());
         Log.logger = LogManager.getLogger(getClass());
+		WebDriverFacade.createDriver("FULL");
         Log.testStart(context.getName());
         Log.testDescription(method.getAnnotation(Test.class).description());
-		WebDriverFacade.createDriver("FULL");
 	}
 
 	@AfterMethod(alwaysRun = true)
@@ -92,7 +92,7 @@ public abstract class TestBase {
 			e.printStackTrace();
 			getReport().info("There was an error capturing screenshot > " + e.getMessage() + " caused by > " + e.getCause().getMessage());
 		}
-			WebDriverFacade.shutDown();
+			WebDriverFacade.shutdown();
 			Log.testEnd(context.getName());
 	}
 	

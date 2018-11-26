@@ -10,6 +10,25 @@
     <parameter name="departure" value="BAI"></parameter>
     <parameter name="destination" value="BOG"></parameter>
     <classes><class name="demo.AutomationDemoTests" /></classes></test>
+	
+    <test name="Flight BOG BAI" >
+    <parameter name="departure" value="BOG"></parameter>
+    <parameter name="destination" value="BAI"></parameter>
+    <classes><class name="demo.AutomationDemoTests" /></classes></test>
     
-
+    <test name="Flight MVE BOG" >
+    <parameter name="departure" value="MVE"></parameter>
+    <parameter name="destination" value="BOG"></parameter>
+    <classes><class name="demo.AutomationDemoTests" /></classes></test>
+    
+    <test name="Flight BOG MVE" >
+    <parameter name="departure" value="BOG"></parameter>
+    <parameter name="destination" value="MVE"></parameter>
+    <classes><class name="demo.AutomationDemoTests" /></classes></test>
+    
+    <test name="Flight BAI MVE" >
+    <parameter name="departure" value="BAI"></parameter>
+    <parameter name="destination" value="MVE"></parameter>
+    <classes><class name="demo.AutomationDemoTests" /></classes></test>
+	
 </suite>

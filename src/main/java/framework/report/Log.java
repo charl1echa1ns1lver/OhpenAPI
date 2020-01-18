@@ -30,11 +30,6 @@ public class Log {
     public static void testStep(String message){
         logger.info(message);
     }
-
-    public static void testStep(String message, String parameter){
-        logger.info(String.format(message,parameter));
-    }
-
     public static void validationFail(String message){failReason = message;}
 
     public static void testFailReason(){logger.error("xxxxxx " + failReason + " xxxxxx");}

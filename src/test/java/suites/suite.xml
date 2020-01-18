@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="GetPersonalizedRatesTests">
+	<listeners>
+		<listener class-name="framework.report.ReportListener"/>
+	    <listener class-name="framework.test.ExecutionListener"/>
+	</listeners>
+
+    <test name="happy path">
+    <classes><class name="demo.GetPersonalizedRatesTests"/></classes></test>    
+   
+</suite> 

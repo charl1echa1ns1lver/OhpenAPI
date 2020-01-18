@@ -113,19 +113,6 @@ public class FrameworkProperties {
 	}
 	
 	/**
-	 * Return APPLITOOLS_APIKEY variable, and if null 'applitools.apikey' property value is returned
-	 * @return the property value
-	 * @author carlos.cadena
-	 */
-	public static String getApplitoolsApiKey() {
-		if(System.getProperty("APPLITOOLS_APIKEY") == null)
-		{
-			return props.getProperty("applitools.apikey");
-		}
-		return System.getProperty("APPLITOOLS_APIKEY");
-	}
-	
-	/**
 	 * Return PARALLEL variable, and if null 'parallel' property value is returned
 	 * @return the property value
 	 * @author carlos.cadena

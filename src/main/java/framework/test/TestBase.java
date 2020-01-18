@@ -1,9 +1,7 @@
 package framework.test;
 
-import com.applitools.eyes.selenium.Eyes;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
-import framework.base.FrameworkProperties;
 import framework.base.WebDriverFacade;
 import framework.report.Log;
 
@@ -15,7 +13,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -28,10 +25,9 @@ import java.util.Base64;
 
 public abstract class TestBase {
 	
-	private Eyes eyes;
-
 	public static ThreadLocal<ExtentTest> report = new ThreadLocal<ExtentTest>();
-	private static final String screenshots = new File(System.getProperty("user.dir")).getAbsolutePath() + File.separator + "screenshots" + File.separator; 
+	private static final String screenshots = new File(System.getProperty("user.dir")).getAbsolutePath() + File.separator + "$screenshots" + File.separator;
+
 
 	public static void setReport(ExtentTest rep) {
 		report.set(rep);
@@ -41,20 +37,12 @@ public abstract class TestBase {
 		return report.get();
 	}
 	
-	public Eyes getEyes() {
-		if(eyes == null) {
-			eyes = new Eyes();
-		}
-		return eyes;
-	}
-
 	/**
 	 * Driver Creation
 	 * @throws URISyntaxException 
 	 */
 	@BeforeSuite
 	public void setUp(ITestContext context) throws IOException, URISyntaxException{
-	    getEyes().setApiKey(FrameworkProperties.getApplitoolsApiKey());
 		Path screenshotsPath = new File(screenshots).toPath();
 		if(!Files.exists(screenshotsPath))
 		{
@@ -70,7 +58,7 @@ public abstract class TestBase {
         Log.logger = LogManager.getLogger(getClass());
         Log.testStart(context.getName());
         Log.testDescription(method.getAnnotation(Test.class).description());
-		WebDriverFacade.createDriver("FULL");
+		WebDriverFacade.createDriver();
 	}
 
 	@AfterMethod(alwaysRun = true)
@@ -105,10 +93,6 @@ public abstract class TestBase {
 			for (File f : files) {
 				f.deleteOnExit();
 			}
-		}
-		if(eyes.getIsOpen()){
-			eyes.close(false);
-		}
-			
+		}	
 	}
 }

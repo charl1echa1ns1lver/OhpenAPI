@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -26,7 +27,7 @@ public class WebDriverFacade {
     	return webDriver.get();
     }
 
-    public static void createDriver(String size){
+    public static void createDriver(){
         switch (FrameworkProperties.getBrowser().toUpperCase()){
             case "FIREFOX":
                 firefoxDriverInitialize();
@@ -40,22 +41,7 @@ public class WebDriverFacade {
             default:
                 throw new IllegalArgumentException(String.format("The selected driver %s is not supported", FrameworkProperties.getBrowser()));
         }
-        switch (size.toUpperCase()){
-                case "SMALL":
-                    resizeWindows(400, 600);
-                    break;
-                case "MEDIUM":
-                    resizeWindows(768, 1024);
-                    break;
-                case "LARGE":
-                    resizeWindows(1280, 1024);
-                    break;
-                case "FULL":
-                    maximizeWindows();
-                    break;
-                default:
-                    throw new IllegalArgumentException(String.format("The size %s is not supported", size));
-        }
+        maximize();
     }
 
     /**
@@ -96,7 +82,7 @@ public class WebDriverFacade {
     /**
      *  maximize the browser windows.
      */
-    public static void maximizeWindows(){
+    public static void maximize(){
     	getDriver().manage().window().maximize();
     }
 
@@ -131,7 +117,7 @@ public class WebDriverFacade {
      */
     public static <T extends BasePage> T navigateTo(Class<T> page, String url) throws InstantiationException, IllegalAccessException{
     	getDriver().get(url);
-    	return page.newInstance();
+    	return PageFactory.initElements(getDriver(), page);
     }
     
     /**
@@ -291,6 +277,7 @@ public class WebDriverFacade {
 		return Utils.findElements(getDriver(), locator, pageTimeOut, visibility);
     }
 	
+	
 	/**
 	 * check if an element is present with timeout
 	 */
@@ -353,8 +340,26 @@ public class WebDriverFacade {
 		alert.accept();
 	}
 	
+	public static void click(WebElement element) {
+		click(element, pageTimeOut);
+	}
+	
+	public static void click(WebElement element, int timeOut) {
+		try {
+			element.click();
+		} catch (StaleElementReferenceException | NoSuchElementException | ElementNotVisibleException e) {
+			Utils.waitForElementVisibility(getDriver(), element, timeOut);
+			element.click();
+		}
+	}
+	
 	public static void clickJavascript(WebElement element) {
 		JavascriptExecutor executor = (JavascriptExecutor) getDriver();
 		executor.executeScript("arguments[0].click();", element);
 	}
+	
+	public static void scrollIntoView(WebElement element) {
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
+	}
+
 }

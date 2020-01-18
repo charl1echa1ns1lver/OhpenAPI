@@ -19,7 +19,7 @@ public abstract class BasePage {
 		String pageError = "Page did not load after waiting for " + WebDriverFacade.pageTimeOut
 				+ " seconds for main element to be present";
 		if (WebDriverFacade.isElementPresent(mainLocator)) {
-			PageFactory.initElements(WebDriverFacade.getDriver(), this);
+			PageFactory.initElements(WebDriverFacade.getDriver(), this.getClass());
 		} else {
 			Log.testFail(pageError);
 			throw new NoSuchElementException(pageError);

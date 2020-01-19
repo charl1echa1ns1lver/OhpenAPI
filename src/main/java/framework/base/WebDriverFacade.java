@@ -6,7 +6,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -108,6 +107,7 @@ public class WebDriverFacade {
     	getDriver().navigate().back();
     }
     
+    
     /**
      * Navigate to url
      * @param url
@@ -117,7 +117,7 @@ public class WebDriverFacade {
      */
     public static <T extends BasePage> T navigateTo(Class<T> page, String url) throws InstantiationException, IllegalAccessException{
     	getDriver().get(url);
-    	return PageFactory.initElements(getDriver(), page);
+    	return page.newInstance();
     }
     
     /**
@@ -277,10 +277,6 @@ public class WebDriverFacade {
 		return Utils.findElements(getDriver(), locator, pageTimeOut, visibility);
     }
 	
-	
-	/**
-	 * check if an element is present with timeout
-	 */
 	public static boolean isElementPresent(By locator) {
 		return Utils.isElementPresent(getDriver(), locator, pageTimeOut);
 	}
@@ -292,6 +288,15 @@ public class WebDriverFacade {
 	public static boolean isElementEnabled(WebElement element, int timeout) {
 		return Utils.isElementEnabled(getDriver(), element, timeout);
 	}
+	
+	public static boolean isElementEnabled(By locator) {
+		return isElementEnabled(locator, pageTimeOut);
+	}
+	
+	public static boolean isElementEnabled(By locator, int timeout) {
+		return Utils.isElementEnabled(getDriver(), locator, timeout);
+	}
+
 
 	public static boolean isElementEnabled(WebElement element) {
 		return isElementEnabled(element, pageTimeOut);
@@ -333,6 +338,29 @@ public class WebDriverFacade {
 		return Utils.isAttributePresentOnElement(getDriver(), locator, attribute, value, contains, pageTimeOut);
 	}
 	
+	
+	public static boolean isElementVisible(WebElement element) {
+		return isElementVisible(element, pageTimeOut);
+	}
+
+	public static boolean isElementVisible(By locator) {
+		return isElementVisible(locator, pageTimeOut);
+	}
+	
+	public static boolean isElementVisible(WebElement container, By locator, int timeOut) {
+		return Utils.isElementVisible(container, locator, timeOut);	
+	}
+	
+	
+	public static boolean isElementVisible(WebElement element, int timeOut) {
+		return Utils.isElementVisible(getDriver(), element, timeOut);
+	}
+
+	public static boolean isElementVisible(By locator, int timeOut) {
+		return Utils.isElementVisible(getDriver(), locator, timeOut);
+	}
+	
+	
 	public static void acceptAlert() {
 		WebDriverWait wait = new WebDriverWait(getDriver(), 5000);
 		wait.until(ExpectedConditions.alertIsPresent());
@@ -347,8 +375,8 @@ public class WebDriverFacade {
 	public static void click(WebElement element, int timeOut) {
 		try {
 			element.click();
-		} catch (StaleElementReferenceException | NoSuchElementException | ElementNotVisibleException e) {
-			Utils.waitForElementVisibility(getDriver(), element, timeOut);
+		} catch (StaleElementReferenceException | NoSuchElementException | ElementNotVisibleException | ElementClickInterceptedException e) {
+			Utils.waitForElementEnabled(getDriver(), element, timeOut);
 			element.click();
 		}
 	}

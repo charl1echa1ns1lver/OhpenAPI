@@ -19,7 +19,7 @@ import utils.Constants.Title;
 /**
  * The Class LoansPage.
  */
-public class LoansPage extends BasePage {
+public class LoansPage extends ZopaBasePage {
 	
 	/** The radio button years. */
 	private final String radioButtonYears = "div input[data-automation='ZA.loan-select-%s']";
@@ -46,10 +46,10 @@ public class LoansPage extends BasePage {
 	 * @param year the year
 	 */
 	public void selectLoanYears(String year) {
-		WebElement yearRadioButton = WebDriverFacade.findElement(By.xpath(String.format(radioButtonYears, year)));
+		WebElement yearRadioButton = WebDriverFacade.findElement(By.cssSelector(String.format(radioButtonYears, year)));
+		WebDriverFacade.clickJavascript(yearRadioButton);
 		WebDriverFacade.scrollIntoView(yearRadioButton);
-		WebDriverFacade.click(yearRadioButton);
-		Log.testStep(String.format("Selecting %s year", year));
+		Log.testStep(String.format("Selecting '%s' year(s) loan", year));
 	}
 	
 	/**

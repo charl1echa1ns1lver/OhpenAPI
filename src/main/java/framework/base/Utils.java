@@ -26,10 +26,11 @@ public class Utils {
 		return container.findElement(selector);
 	}
 
-	public static WebElement findElement(WebDriver driver, By selector, int timeOut, boolean visibility) {
-		if (visibility) {
+	public static <T extends WebElement> T findElement(WebDriver driver, By selector, int timeOut, boolean visibility) {
+		if(visibility) {
 			waitForElementVisibility(driver, selector, timeOut);
-		} else {
+		}
+		else {
 			waitForElementPresence(driver, selector, timeOut);
 		}
 		return driver.findElement(selector);
@@ -273,6 +274,33 @@ public class Utils {
 								return element.isDisplayed();
 							}
 							return false;
+						}
+					});
+		} catch (TimeoutException e) {
+			return false;
+		}
+	}
+	
+	/**
+	 * Checks if an element is visible inside a container explicitly.
+	 * 
+	 * @author carlos.cadena
+	 * @param <T> the generic type
+	 * @param container the container
+	 * @param locator the locator
+	 * @param timeOut the time out
+	 * @return true, if is element visible
+	 */
+	public static <T extends WebElement> boolean isElementVisible(T container, By locator, int timeOut) {
+		try {
+			return new FluentWait<WebElement>(container).withTimeout(Duration.ofSeconds(timeOut))
+					.ignoring(NoSuchElementException.class).ignoring(ElementNotVisibleException.class)
+					.ignoring(StaleElementReferenceException.class).ignoring(WebDriverException.class)
+					.until(new Function<WebElement, Boolean>() {
+						public Boolean apply(WebElement arg) {
+							{
+								return arg.findElement(locator).isDisplayed();
+							}
 						}
 					});
 		} catch (TimeoutException e) {

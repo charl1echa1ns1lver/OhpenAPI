@@ -73,7 +73,7 @@ public class Constants {
      */
     public enum ResidentialStatus {
 	    OWNER("Yes, outright owner"),
-	    MORTAGE("Yes, with mortage"),
+	    MORTAGE("Yes, with mortgage"),
 	    NO("No");
     	
 	    /** The option. */

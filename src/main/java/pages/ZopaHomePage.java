@@ -3,24 +3,23 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 
-import framework.base.BasePage;
 import framework.base.WebDriverFacade;
+import framework.report.Log;
 
 /**
  * The Class ZopaHomePage.
  */
-public class ZopaHomePage extends BasePage {
+public class ZopaHomePage extends ZopaBasePage {
 
 	/** The my account button locator. */
-	private final By myAccountButtonLocator = By.cssSelector("a[href*='zopa.com'][data-automation='ZA.Sign_in.topBar.Menu']");
+	private final String myAccountButtonLocator = "a[href*='zopa.com'][data-automation='ZA.Sign_in.topBar.Menu']";
 	
 	/** The loans button. */
-    @FindBy(how = How.CSS, using = "a[data-automation='ZA.button-Loans'] span")
+    @FindBy(css = "a[data-automation='ZA.button-Loans'] span")
 	private WebElement loansButton;
-	
-	
+    
+    
 	/**
 	 * Instantiates a new zopa home page.
 	 */
@@ -33,9 +32,8 @@ public class ZopaHomePage extends BasePage {
 	 */
 	@Override
 	public By setMainLocator() {
-		return myAccountButtonLocator;
+		return By.cssSelector(myAccountButtonLocator);
 	}
-	
 	
 	/**
 	 * Click get personalized rates.
@@ -44,9 +42,10 @@ public class ZopaHomePage extends BasePage {
 	 */
 	public LoansPage clickGetPersonalizedRates() {
 		WebDriverFacade.click(loansButton);
+		Log.testStep("Navigating to Loans Page");
 		return new LoansPage();
 	}
-	
+
 
 
 }

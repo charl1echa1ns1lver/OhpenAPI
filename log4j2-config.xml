@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<Property name="LOG_PATTERN">%d{HH:mm:ss.SSS} [%t] %-5level -> %msg%n
+		</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+		<Routing name="MyRoutingAppender">
+			<Routes pattern="$${ctx:threadName}">
+				<Route>
+					<File fileName="./${ctx:threadName}_log.log"
+						name="appender-${ctx:threadName}" append="false">
+						<PatternLayout pattern="${LOG_PATTERN}" />
+						<Filters>
+							<ThresholdFilter level="info" onMatch="ACCEPT"
+								onMismatch="DENY" />
+							<ThresholdFilter level="warn" onMatch="ACCEPT"
+								onMismatch="DENY" />
+							<ThresholdFilter level="error" onMatch="ACCEPT"
+								onMismatch="DENY" />
+							<ThresholdFilter level="debug" onMatch="DENY"
+								onMismatch="NEUTRAL" />
+							<ThresholdFilter level="fatal" onMatch="DENY"
+								onMismatch="NEUTRAL" />
+						</Filters>
+					</File>
+				</Route>
+			</Routes>
+		</Routing>
+	</Appenders>
+	<Loggers>
+		<Root level="all">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="MyRoutingAppender" />
+		</Root>
+	</Loggers>
+</Configuration>

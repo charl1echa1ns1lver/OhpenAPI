@@ -6,7 +6,7 @@
 	    <listener class-name="framework.test.ExecutionListener"/>
 	</listeners>
 
-    <test name="happy path">
-    <classes><class name="demo.GetPersonalizedRatesTests"/></classes></test>    
-   
+    <test name="Happy Path">
+    <classes><class name="demo.TC01_HappyPath"/></classes></test> 
+ 
 </suite> 

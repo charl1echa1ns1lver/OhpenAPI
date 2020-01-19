@@ -2,8 +2,11 @@ package framework.test;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
+
+import dto.ZopaUser;
 import framework.base.WebDriverFacade;
 import framework.report.Log;
+import utils.TestUtils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.ThreadContext;
@@ -27,7 +30,7 @@ public abstract class TestBase {
 	
 	public static ThreadLocal<ExtentTest> report = new ThreadLocal<ExtentTest>();
 	private static final String screenshots = new File(System.getProperty("user.dir")).getAbsolutePath() + File.separator + "$screenshots" + File.separator;
-
+	private ThreadLocal<ZopaUser> user;
 
 	public static void setReport(ExtentTest rep) {
 		report.set(rep);
@@ -35,6 +38,14 @@ public abstract class TestBase {
 
 	public static ExtentTest getReport() {
 		return report.get();
+	}
+	
+	public ZopaUser getBorrower() {
+		return user.get();
+	}
+	
+	public void setBorrower(ZopaUser borrower) {
+		user.set(borrower);
 	}
 	
 	/**
@@ -59,6 +70,8 @@ public abstract class TestBase {
         Log.testStart(context.getName());
         Log.testDescription(method.getAnnotation(Test.class).description());
 		WebDriverFacade.createDriver();
+		user = new ThreadLocal<ZopaUser>();
+		user.set(new ZopaUser());
 	}
 
 	@AfterMethod(alwaysRun = true)
@@ -81,6 +94,7 @@ public abstract class TestBase {
 			getReport().info("There was an error capturing screenshot > " + e.getMessage() + " caused by > " + e.getCause().getMessage());
 		}
 			WebDriverFacade.shutDown();
+			TestUtils.createJsonTestFile(result.getTestName(), user.get());
 			Log.testEnd(context.getName());
 	}
 	
@@ -93,6 +107,6 @@ public abstract class TestBase {
 			for (File f : files) {
 				f.deleteOnExit();
 			}
-		}	
+		}
 	}
 }

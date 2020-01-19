@@ -67,7 +67,6 @@ public abstract class TestBase {
 	public void setUpPage(ITestContext context, Method method) {
         ThreadContext.put("threadName", context.getName());
         Log.logger = LogManager.getLogger(getClass());
-		WebDriverFacade.createDriver("FULL");
         Log.testStart(context.getName());
         Log.testDescription(method.getAnnotation(Test.class).description());
 		WebDriverFacade.createDriver();

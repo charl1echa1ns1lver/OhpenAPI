@@ -21,13 +21,14 @@ On pom.xml :
 					</suiteXmlFiles>
 				</configuration>
 
-suiteXmlFile variable could be any suite you define in the fwk, for the sake of simplicity the phptravels xml has been hardcoded and does not need to be provided in the command line (phptravels.xml):
+suiteXmlFile variable could be any suite you define in the fwk, for the sake of simplicity the suite xml has been hardcoded and does not need to be provided in the command line (suite.xml):
 
-<properties>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<testng.version>6.10</testng.version>
-		<appium.version>6.0.0</appium.version>
-		<suiteXmlFile>./src/test/java/suites/phptravels.xml</suiteXmlFile>
+		<testng.version>6.14.3</testng.version>
+		<appium.version>7.0.0</appium.version>
+		<jackson.version>2.9.8</jackson.version>
+		<suiteXmlFile>./src/test/java/suites/suite.xml</suiteXmlFile>
 	</properties>
 
 2. To execute the tests you have two ways:
@@ -44,10 +45,10 @@ If install command was run the first time then you just simply execute for next 
 
 mvn clean install -DPARALLEL=2 -DBROWSER=Edge
 
-PARALLEL option could be any number you desired for parallel execution (2 by default)
+PARALLEL option could be any number you desired for parallel execution (3 by default)
 BROWSER option could be Edge,Chrome or Firefox (case could be upper, lower or title)
 
-There are other parameters that can be provided like SUITEXMLFILE as mentioned above,  TIMEOUT (if you want a custom timeout to be set for the explicit waits, 60 s by default) or BASE_URL (https://www.phptravels.net by default)
+There are other parameters that can be provided like SUITEXMLFILE as mentioned above,  TIMEOUT (if you want a custom timeout to be set for the explicit waits, 15 s by default) or BASE_URL (https://www.zopa.com/ by default)
 
 Note: 
 
@@ -55,15 +56,19 @@ Alternative 2 (Using eclipse)
 
 - After cloning the project, imported and configure the Java Facet if needed (sometimes this does not happen automatically). When imported Eclipse should be able to recognize this as a Maven Project
 
-- Go to ./src/test/java/suites/phptravels.xml > right click > Run as TestNG Suite
+- Go to ./src/test/java/suites/suite.xml > right click > Run as TestNG Suite
 
 A Report generated using Extent Reports is created after each execution that can be found in:
 
 ./test-output with the name AutomationReport_YYYY-MM-DD(hh.mm)
 
+All tests generate a test data json file in:
+
+./testData with the name (testName)_borrower_YYYY-MM-DD(hh.mm)_.json
+
 NOTE about alternative 1:
 
-On pom.xml a WebDriverManager dependency was included and when a driver gets initialized it recognizes the chrome, firefox or edge version you have installed in your machine. If you are working with the latest Chrome version in your machine you might experience this new bug
+On pom.xml a WebDriverManager dependency was included and when a driver gets initialized it recognizes the chrome, firefox or edge version you have installed in your machine. If you are working with the latest Chrome version in your machine you might experience this  bug
 
 https://github.com/SeleniumHQ/selenium/issues/6317
 

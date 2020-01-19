@@ -67,9 +67,9 @@ public abstract class TestBase {
 	public void setUpPage(ITestContext context, Method method) {
         ThreadContext.put("threadName", context.getName());
         Log.logger = LogManager.getLogger(getClass());
-        Log.testStart(context.getName());
-        Log.testDescription(method.getAnnotation(Test.class).description());
 		WebDriverFacade.createDriver();
+		Log.testStart(context.getName());
+		Log.testDescription(method.getAnnotation(Test.class).description());
 		user = new ThreadLocal<ZopaUser>();
 		user.set(new ZopaUser());
 	}
@@ -94,7 +94,7 @@ public abstract class TestBase {
 			getReport().info("There was an error capturing screenshot > " + e.getMessage() + " caused by > " + e.getCause().getMessage());
 		}
 			WebDriverFacade.shutdown();
-			TestUtils.createJsonTestFile(result.getTestName(), user.get());
+			TestUtils.createJsonTestFile(context.getName(), user.get());
 			Log.testEnd(context.getName());
 	}
 	

@@ -8,5 +8,8 @@
 
     <test name="Happy Path">
     <classes><class name="demo.TC01_HappyPath"/></classes></test> 
- 
+    <test name="Wrong Age">
+    <classes><class name="demo.TC02_WrongAge"/></classes></test> 
+    <test name="Wrong Postcode">
+    <classes><class name="demo.TC03_WrongPostcode"/></classes></test>     
 </suite> 

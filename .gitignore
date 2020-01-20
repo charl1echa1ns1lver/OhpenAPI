@@ -8,4 +8,3 @@ out/
 *.jar
 *.project
 /test-output
-/testData

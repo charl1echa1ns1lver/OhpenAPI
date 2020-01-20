@@ -1,8 +1,11 @@
 package pages;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebElement;
@@ -400,7 +403,7 @@ public class PersonalizedLoanRatesPage extends ZopaBasePage {
 	 * @return true, if is previous address
 	 */
 	public boolean isPreviousAddress() {
-		return WebDriverFacade.isElementVisible(By.xpath("//h4[text() = 'Previous address'])"), 5);
+		return WebDriverFacade.isElementVisible(By.xpath("//h4[text() = 'Previous address']"), 5);
 	}
 	
 	/**
@@ -412,6 +415,14 @@ public class PersonalizedLoanRatesPage extends ZopaBasePage {
 	public boolean validateAddress(String address) {
 		if(!WebDriverFacade.isElementVisible(errorPostcodeLabel, 5)) {
 		String actualAddress = address.substring(0,address.indexOf(","));
+		List<String> splitted = Arrays.asList(actualAddress.split(" "));
+		if(NumberUtils.isCreatable(splitted.get(0).trim())){
+			StringBuffer buffer = new StringBuffer(splitted.get(0).trim());
+			buffer.append("  - ");
+			IntStream.range(1, splitted.size())
+			.mapToObj(index -> splitted.get(index)).forEach(txt -> buffer.append(txt + " "));
+		    actualAddress = buffer.toString().trim();
+		}
 		return WebDriverFacade.isElementVisible(By.xpath(String.format(locatorAddressAdded, actualAddress)));
 		}
 		else {

@@ -1,13 +1,12 @@
 package framework.test;
 
-import framework.base.FrameworkProperties;
+import java.util.List;
+
 import org.testng.IAlterSuiteListener;
 import org.testng.xml.XmlSuite;
 import org.testng.xml.XmlSuite.ParallelMode;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import framework.base.FrameworkProperties;
 
 public class ExecutionListener implements IAlterSuiteListener {
 

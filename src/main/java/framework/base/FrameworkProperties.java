@@ -1,11 +1,11 @@
 package framework.base;
 
-import framework.report.Log;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import framework.report.Log;
 
 public class FrameworkProperties {
 	

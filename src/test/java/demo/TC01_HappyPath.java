@@ -9,10 +9,10 @@ import dto.ZopaUser;
 import framework.base.FrameworkProperties;
 import framework.base.WebDriverFacade;
 import framework.test.TestBase;
+import pages.LoansPage;
+import pages.PersonalizedLoanRatesPage;
 import pages.ZopaHomePage;
 import utils.Constants.ResidentialStatus;
-import pages.PersonalizedLoanRatesPage;
-import pages.LoansPage;
 
 public class TC01_HappyPath extends TestBase {
 	
@@ -57,10 +57,10 @@ public class TC01_HappyPath extends TestBase {
 		if (loanRates.isPreviousAddress()) {
 			address2 = loanRates.enterAddress(borrower.getBeforePostCode(), borrower.getBeforeMonthMoveIn(),
 					borrower.getBeforeYearMoveIn());
-			report.get().log(Status.INFO, "And a valid 'Current address' is selected successfully");
+			report.get().log(Status.INFO, "And a valid 'Previous address' is selected successfully");
 			borrower.setBeforeAddress(address2);
 			setBorrower(borrower);
-			Assert.assertTrue(loanRates.validateAddress(address1),
+			Assert.assertTrue(loanRates.validateAddress(address2),
 					"'Previous Address' was not valid since does not appear on 'Accepted' list");
 		}
         report.get().log(Status.INFO, "And all values are entered with no errors shown on process");

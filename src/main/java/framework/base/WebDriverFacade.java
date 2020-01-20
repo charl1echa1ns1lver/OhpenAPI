@@ -1,7 +1,22 @@
 package framework.base;
 
 
-import org.openqa.selenium.*;
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -9,14 +24,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import framework.base.FrameworkProperties;
-import framework.base.Utils;
 import framework.report.Log;
 import io.github.bonigarcia.wdm.WebDriverManager;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
 
 public class WebDriverFacade {
 

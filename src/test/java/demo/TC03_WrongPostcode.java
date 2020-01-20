@@ -9,7 +9,6 @@ import com.aventstack.extentreports.Status;
 import dto.ZopaUser;
 import framework.base.FrameworkProperties;
 import framework.base.WebDriverFacade;
-import framework.report.Log;
 import framework.test.TestBase;
 import pages.LoansPage;
 import pages.PersonalizedLoanRatesPage;
@@ -25,7 +24,7 @@ public class TC03_WrongPostcode extends TestBase {
     	ZopaUser borrower = getBorrower();
     	String randomPostcode = "XXX" + RandomStringUtils.randomAlphanumeric(3);
     	borrower.setPostCode(randomPostcode);
-	report.get().log(Status.INFO, "Given a user with an incorrect postcode like > " + randomPostcode);
+	    report.get().log(Status.INFO, "Given a user with an incorrect postcode like > " + randomPostcode);
     	ZopaHomePage home = WebDriverFacade.navigateTo(ZopaHomePage.class,FrameworkProperties.getBaseUrl());
     	home.clickAcceptAllCookies();
     	report.get().log(Status.INFO, "When navigating to Loans Page");

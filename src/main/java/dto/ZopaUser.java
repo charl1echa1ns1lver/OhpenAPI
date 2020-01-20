@@ -1,6 +1,5 @@
 package dto;
 
-import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Arrays;
@@ -9,11 +8,11 @@ import java.util.Locale;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import utils.ApiUtils;
-import utils.TestUtils;
 import utils.Constants.EmploymentStatus;
 import utils.Constants.LoanFor;
 import utils.Constants.ResidentialStatus;
 import utils.Constants.Title;
+import utils.TestUtils;
 
 public class ZopaUser {
 	

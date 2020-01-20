@@ -1,12 +1,8 @@
 package framework.base;
 
-import framework.report.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 
 /**
  * The Class WebPageObject, that allows to model a section of a screen

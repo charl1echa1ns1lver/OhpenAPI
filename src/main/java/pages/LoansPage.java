@@ -1,20 +1,11 @@
 package pages;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import framework.base.BasePage;
 import framework.base.WebDriverFacade;
 import framework.report.Log;
-import utils.Constants.EmploymentStatus;
-import utils.Constants.ResidentialStatus;
-import utils.Constants.LoanFor;
-import utils.Constants.Title;
 
 /**
  * The Class LoansPage.

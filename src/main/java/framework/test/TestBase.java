@@ -1,12 +1,12 @@
 package framework.test;
 
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
-
-import dto.ZopaUser;
-import framework.base.WebDriverFacade;
-import framework.report.Log;
-import utils.TestUtils;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Base64;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.ThreadContext;
@@ -18,13 +18,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Base64;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+
+import dto.ZopaUser;
+import framework.base.WebDriverFacade;
+import framework.report.Log;
+import utils.TestUtils;
 
 public abstract class TestBase {
 	

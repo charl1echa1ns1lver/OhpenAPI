@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.Status;
+
 import dto.ZopaUser;
 import framework.base.FrameworkProperties;
 import framework.base.WebDriverFacade;

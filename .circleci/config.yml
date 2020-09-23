@@ -12,6 +12,7 @@ jobs:
           command: |
             set -x
             docker-compose -f docker-compose.yml up -d
+            docker ps -a
     - run:
         name: Generate Cache Checksum
         command: find . -name 'pom.xml' | sort | xargs cat > /tmp/maven_cache_seed

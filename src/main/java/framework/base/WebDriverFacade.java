@@ -13,7 +13,6 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -24,7 +23,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -93,7 +91,6 @@ public class WebDriverFacade {
         else {
         	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), new ChromeDriver(chromeOptions).getCapabilities()));
         }
-        webDriver.set(new ChromeDriver(chromeOptions));
     }
 
     /**

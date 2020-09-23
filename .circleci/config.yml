@@ -11,8 +11,7 @@ jobs:
           name: Start container and verify it's working
           command: |
             set -x
-            docker-compose up -d
-            docker network create grid
+            docker-compose -f docker-compose.yml up -d
     - run:
         name: Generate Cache Checksum
         command: find . -name 'pom.xml' | sort | xargs cat > /tmp/maven_cache_seed

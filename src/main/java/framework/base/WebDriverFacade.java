@@ -19,10 +19,8 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -67,7 +65,7 @@ public class WebDriverFacade {
         	WebDriverManager.firefoxdriver().setup();
         }
         else {
-        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), new FirefoxDriver().getCapabilities()));
+        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), DesiredCapabilities.firefox()));
         }
     }
 
@@ -89,7 +87,7 @@ public class WebDriverFacade {
         WebDriverManager.chromedriver().setup();
         }
         else {
-        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), new ChromeDriver(chromeOptions).getCapabilities()));
+        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), chromeOptions));
         }
     }
 
@@ -103,7 +101,7 @@ public class WebDriverFacade {
         	WebDriverManager.edgedriver().setup();
         }
         else {
-        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), new EdgeDriver().getCapabilities()));
+        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), DesiredCapabilities.edge()));
         }
     }
 

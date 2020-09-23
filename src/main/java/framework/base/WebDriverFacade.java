@@ -2,6 +2,8 @@ package framework.base;
 
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -21,6 +24,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -31,42 +36,50 @@ public class WebDriverFacade {
 
 	private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
 	public static final int pageTimeOut = Integer.valueOf(FrameworkProperties.getTimeout()).intValue();
+	private static final String URL_DOCKER = "http://localhost:4444/wd/hub";
 	
     public static WebDriver getDriver() {
     	return webDriver.get();
     }
 
-    public static void createDriver(){
-        switch (FrameworkProperties.getBrowser().toUpperCase()){
-            case "FIREFOX":
-                firefoxDriverInitialize();
-                break;
-            case "CHROME":
-                chromeDriverInitialize();
-                break;
-            case "EDGE":
-                edgeDriverInitialize();
-                break;
-            default:
-                throw new IllegalArgumentException(String.format("The selected driver %s is not supported", FrameworkProperties.getBrowser()));
-        }
-        maximize();
-    }
-
+    public static void createDriver() throws MalformedURLException{
+			switch (FrameworkProperties.getBrowser().toUpperCase()){
+	            case "FIREFOX":
+	                firefoxDriverInitialize(FrameworkProperties.getLocal().equalsIgnoreCase("true"));
+	                break;
+	            case "CHROME":
+	                chromeDriverInitialize(FrameworkProperties.getLocal().equalsIgnoreCase("true"));
+	                break;
+	            case "EDGE":
+	                edgeDriverInitialize(FrameworkProperties.getLocal().equalsIgnoreCase("true"));
+	                break;
+	            default:
+	                throw new IllegalArgumentException(String.format("The selected driver %s is not supported", FrameworkProperties.getBrowser()));
+	        }
+	        maximize();
+	       }
+    
     /**
      *  initialize the Firefox driver.
+     * @param isLocal 
+     * @throws MalformedURLException 
      */
-    public static void firefoxDriverInitialize(){
-        WebDriverManager.firefoxdriver().setup();
-        webDriver.set(new FirefoxDriver());
+    public static void firefoxDriverInitialize(boolean isLocal) throws MalformedURLException{
+        if(isLocal) {
+        	WebDriverManager.firefoxdriver().setup();
+        }
+        else {
+        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), new FirefoxDriver().getCapabilities()));
+        }
     }
 
     /**
      *  initialize the Chrome driver.
+     * @param isLocal 
+     * @throws MalformedURLException 
      */
-    public static void chromeDriverInitialize(){
+    public static void chromeDriverInitialize(boolean isLocal) throws MalformedURLException{
         ChromeOptions chromeOptions = new ChromeOptions();
-        WebDriverManager.chromedriver().setup();
         HashMap<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put("credentials_enable_service", false);
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
@@ -74,15 +87,27 @@ public class WebDriverFacade {
         chromeOptions.addArguments("test-type");
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("no-sandbox");
+        if(isLocal) {
+        WebDriverManager.chromedriver().setup();
+        }
+        else {
+        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), new ChromeDriver(chromeOptions).getCapabilities()));
+        }
         webDriver.set(new ChromeDriver(chromeOptions));
     }
 
     /**
      *  initialize the Microsoft EDGE driver.
+     * @param isLocal 
+     * @throws MalformedURLException 
      */
-    public static void edgeDriverInitialize(){
-    	WebDriverManager.edgedriver().setup();
-        webDriver.set(new EdgeDriver());
+    public static void edgeDriverInitialize(boolean isLocal) throws MalformedURLException{
+        if(isLocal) {
+        	WebDriverManager.edgedriver().setup();
+        }
+        else {
+        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), new EdgeDriver().getCapabilities()));
+        }
     }
 
     //endregion

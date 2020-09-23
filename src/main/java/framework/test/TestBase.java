@@ -3,6 +3,7 @@ package framework.test;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -64,7 +65,7 @@ public abstract class TestBase {
 	}
 
 	@BeforeMethod
-	public void setUpPage(ITestContext context, Method method) {
+	public void setUpPage(ITestContext context, Method method) throws MalformedURLException {
         ThreadContext.put("threadName", context.getName());
         Log.logger = LogManager.getLogger(getClass());
 		WebDriverFacade.createDriver();

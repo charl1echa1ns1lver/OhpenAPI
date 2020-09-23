@@ -5,9 +5,13 @@ jobs:
     docker:
     - image: circleci/openjdk:8-jdk-node
     steps:
-    - setup_remote_docker
-        docker-compose up -d
     - checkout
+    - setup_remote_docker
+    - run:
+          name: Start container and verify it's working
+          command: |
+            set -x
+            docker-compose up -d
     - run:
         name: Generate Cache Checksum
         command: find . -name 'pom.xml' | sort | xargs cat > /tmp/maven_cache_seed

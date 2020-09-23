@@ -33,7 +33,7 @@ public class WebDriverFacade {
 
 	private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
 	public static final int pageTimeOut = Integer.valueOf(FrameworkProperties.getTimeout()).intValue();
-	private static final String URL_DOCKER = "https://localhost:4444/wd/hub";
+	private static final String URL_DOCKER = "http://localhost:4444/wd/hub";
 	
     public static WebDriver getDriver() {
     	return webDriver.get();

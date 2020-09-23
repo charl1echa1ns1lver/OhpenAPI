@@ -20,7 +20,8 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -32,7 +33,7 @@ public class WebDriverFacade {
 
 	private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
 	public static final int pageTimeOut = Integer.valueOf(FrameworkProperties.getTimeout()).intValue();
-	private static final String URL_DOCKER = "http://localhost:4444/wd/hub";
+	private static final String URL_DOCKER = "https://localhost:4444/wd/hub";
 	
     public static WebDriver getDriver() {
     	return webDriver.get();
@@ -65,7 +66,7 @@ public class WebDriverFacade {
         	WebDriverManager.firefoxdriver().setup();
         }
         else {
-        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), DesiredCapabilities.firefox()));
+        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), new FirefoxOptions()));
         }
     }
 
@@ -101,7 +102,7 @@ public class WebDriverFacade {
         	WebDriverManager.edgedriver().setup();
         }
         else {
-        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), DesiredCapabilities.edge()));
+        	webDriver.set(new RemoteWebDriver(new URL(URL_DOCKER), new EdgeOptions()));
         }
     }
 

@@ -26,5 +26,6 @@ public class ExecutionListener implements IAlterSuiteListener {
 	{
 			suite.setParallel(ParallelMode.getValidParallel(FrameworkProperties.getParallelType()));
 			suite.setThreadCount(Integer.valueOf(FrameworkProperties.getParallel()).intValue());
+			suite.setDataProviderThreadCount(2);
 	}
 }

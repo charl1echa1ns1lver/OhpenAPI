@@ -32,7 +32,7 @@ public class GetGitUser extends TestBase {
     	Assert.assertTrue( response.getStatusCode() == 200, "Service response was " + statusCode);
     	String user = response.body().jsonPath().getString("login");
     	Log.logger.info("Validate that service response contains user " + username);
-    	Assert.assertTrue(user.contains(username), "Service response does not contain user charl1echa1ns1lver");
+    	Assert.assertEquals(user, username, "username validation failed");
     	response.body().prettyPeek();
     }
 }

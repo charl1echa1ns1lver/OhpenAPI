@@ -15,7 +15,7 @@ import io.restassured.response.Response;
 public class GetGitUser extends TestBase {
 	
 	@DataProvider (name = "data-provider2")
-	 public Object[][] dpMethod(){
+	 public Object[][] dpMethod2(){
 	 return new Object[][] {{"charl1echa1ns1lver"}};
 	 }
 	

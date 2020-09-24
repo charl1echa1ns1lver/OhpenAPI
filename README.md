@@ -1,1 +1,1 @@
-# TO_DO
+A rrport gets generated on ./test-output folder if a execution is sent locally, the ExecutionListener was partially removed from suite.xml, if added executions are done in parallel mode using the settings on config.properties file

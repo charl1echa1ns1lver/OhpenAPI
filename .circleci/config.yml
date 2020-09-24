@@ -16,7 +16,7 @@ jobs:
         command: mvn dependency:go-offline --settings 'pom.xml'
     - run:
         name: Run Tests
-        command: mvn clean install -DPARALLEL=2 -DOAUTH=cd6be165a563bf25a4ca1982202341741c6a1e5f
+        command: mvn clean install -DPARALLEL=2 -DOAUTH=f67fd4db99386c2389dbc3d3a40535c538a07dad
     - save_cache:
         paths:
         - ~/.m2

@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import dto.ZopaUser;
+import dto.GitUser;
 import framework.report.Log;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Utils.
  */
@@ -62,21 +62,11 @@ public class TestUtils {
 	 * Creates the json test file.
 	 *
 	 * @param borrower the borrower
+	 * @throws JsonProcessingException 
 	 */
-	public static void createJsonTestFile(String testName, ZopaUser borrower) {
+	public static <T> void printBodyResponse(String testName, T data) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
-        LocalDateTime now = LocalDateTime.now();
-        int year = now.getYear();
-        int month = now.getMonthValue();
-        int day = now.getDayOfMonth();
-        int hour = now.getHour();
-        int minute = now.getMinute();
-		try {
-			mapper.writeValue(new File(System.getProperty("user.dir") + File.separator + "testData" + File.separator + testName + "_borrower_" + String.format("%d-%02d-%02d(%02d.%02d)", year, month, day, hour, minute) + "_.json"), borrower);
-		} catch (IOException e) {
-			e.printStackTrace();
-			Log.logger.error("Test data was not saved, check file system");
-		}
+		Log.logger.info("Service Response Body was" + mapper.writeValueAsString(data));
 		
 	}
 

@@ -77,7 +77,7 @@ public class ReportListener implements ITestListener, ISuiteListener {
 	@Override
 	public void onStart(ISuite suite) {
 		extent = ExtentManager.getInstance(suite.getName());
-		extent.setSystemInfo("Browser", FrameworkProperties.getBrowser());
+		extent.setSystemInfo("URL", FrameworkProperties.getBaseUrl());
 		parentTest = extent.createTest(suite.getName());
 	}
 
@@ -119,32 +119,5 @@ public class ReportListener implements ITestListener, ISuiteListener {
 		extent.setTestRunnerOutput(results);
 
 		extent.flush();
-		
-		this.modifyHtmlImageNames();
-    }
-
-	/**
-	 * This private method modifies the label "base-64" on report since MediaEntityBuilder class on Extent Reports
-	 * does not have a function to do so when you want to encode in base64 the screenshot image
-	 * @author carlos.cadena
-	 */
-	private void modifyHtmlImageNames() {
-		try {
-			ExtentHtmlReporter htmlReporter = (ExtentHtmlReporter) extent.getStartedReporters().get(0);
-			String path = htmlReporter.config().getFilePath();
-			File reportFile = new File(path);
-			Document doc = Jsoup.parse(reportFile, "UTF-8", "");
-			Elements imageLabels = doc.select("span[class*='label grey white-text']");
-			for (Element x : imageLabels) {
-				x.text("image");
-			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-			writer.write(doc.outerHtml());
-			writer.close();
-
-		} catch (IOException x) {
-            x.printStackTrace();
-		}
-
-	}
+		    }
 }

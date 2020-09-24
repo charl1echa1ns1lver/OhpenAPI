@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.framework</groupId>
-	<artifactId>alpha</artifactId>
+	<artifactId>ohpen</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
@@ -69,52 +69,9 @@
 			<version>1.11.3</version>
 		</dependency>
 		<dependency>
-			<groupId>com.itextpdf</groupId>
-			<artifactId>itextpdf</artifactId>
-			<version>5.0.6</version>
-		</dependency>
-		<dependency>
 			<groupId>com.rallydev.rest</groupId>
 			<artifactId>rally-rest-api</artifactId>
 			<version>2.2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>io.appium</groupId>
-			<artifactId>java-client</artifactId>
-			<version>${appium.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.applitools</groupId>
-			<artifactId>eyes-selenium-java3</artifactId>
-			<version>3.37.1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.seleniumhq.selenium</groupId>
-					<artifactId>selenium-java</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.seleniumhq.selenium</groupId>
-					<artifactId>selenium-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.seleniumhq.selenium</groupId>
-					<artifactId>selenium-support</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>io.appium</groupId>
-					<artifactId>java-client</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>net.dongliu</groupId>
-			<artifactId>apk-parser</artifactId>
-			<version>2.6.0</version>
-		</dependency>
-		<dependency>
-			<groupId>io.github.bonigarcia</groupId>
-			<artifactId>webdrivermanager</artifactId>
-			<version>3.7.1</version>
 		</dependency>
 	</dependencies>
 

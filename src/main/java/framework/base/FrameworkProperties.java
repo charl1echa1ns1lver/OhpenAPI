@@ -47,33 +47,7 @@ public class FrameworkProperties {
 		return prop;
 	}
 
-	/**
-	 * Return TIMEOUT environment variable, and if null 'timeout' property value is returned
-	 * @return the property value
-	 * @author carlos.cadena
-	 */
-	public static String getTimeout() {
-		if(System.getProperty("TIMEOUT") == null)
-		{
-			return props.getProperty("timeout");
-		}
-		return System.getProperty("TIMEOUT");
-	}
-
-    /**
-     * Return LOCAL environment variable, and if null 'local' property value is returned
-     * @return the property value
-     * @author carlos.cadena
-     */
-    public static String getLocal() {
-        if(System.getProperty("LOCAL") == null)
-        {
-            return props.getProperty("local");
-        }
-        return System.getProperty("LOCAL");
-    }
-
-    /**
+	 /**
      * Return BASE_URL environment variable, and if null 'base.url' property value is returned
      * @return the property value
      * @author carlos.cadena
@@ -86,30 +60,18 @@ public class FrameworkProperties {
         return System.getProperty("BASE_URL");
     }
 
-    /**
-     * Return BROWSER_VERSION environment variable, and if null 'browser.version' property value is returned
-     * @return the property value
-     * @author carlos.cadena
-     */
-    public static String getBrowserVersion() {
-        if(System.getProperty("BROWSER_VERSION") == null)
-        {
-            return props.getProperty("browser.version");
-        }
-        return System.getProperty("BROWSER_VERSION");
-    }
-    
+      
 	/**
-	 * Return BROWSER variable, and if null 'browser' property value is returned
+	 * Return OAUTHTOKEN variable, and if null 'oauth' property value is returned
 	 * @return the property value
 	 * @author carlos.cadena
 	 */
-	public static String getBrowser() {
-		if(System.getProperty("BROWSER") == null)
+	public static String getOAuth() {
+		if(System.getProperty("OAUTH") == null)
 		{
-			return props.getProperty("browser");
+			return props.getProperty("oauth");
 		}
-		return System.getProperty("BROWSER");
+		return System.getProperty("OAUTH");
 	}
 	
 	/**

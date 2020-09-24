@@ -1,13 +1,9 @@
 package framework.test;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Base64;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.ThreadContext;
@@ -20,18 +16,14 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
 
-import dto.ZopaUser;
-import framework.base.WebDriverFacade;
+import dto.GitUser;
 import framework.report.Log;
-import utils.TestUtils;
 
 public abstract class TestBase {
 	
 	public static ThreadLocal<ExtentTest> report = new ThreadLocal<ExtentTest>();
-	private static final String screenshots = new File(System.getProperty("user.dir")).getAbsolutePath() + File.separator + "$screenshots" + File.separator;
-	private ThreadLocal<ZopaUser> user;
+	private ThreadLocal<GitUser> user;
 
 	public static void setReport(ExtentTest rep) {
 		report.set(rep);
@@ -41,11 +33,11 @@ public abstract class TestBase {
 		return report.get();
 	}
 	
-	public ZopaUser getBorrower() {
+	public GitUser getBorrower() {
 		return user.get();
 	}
 	
-	public void setBorrower(ZopaUser borrower) {
+	public void setBorrower(GitUser borrower) {
 		user.set(borrower);
 	}
 	
@@ -55,11 +47,6 @@ public abstract class TestBase {
 	 */
 	@BeforeSuite
 	public void setUp(ITestContext context) throws IOException, URISyntaxException{
-		Path screenshotsPath = new File(screenshots).toPath();
-		if(!Files.exists(screenshotsPath))
-		{
-			Files.createDirectory(screenshotsPath);
-		}
 		System.setProperty("log4j.configurationFile", "log4j2-config.xml");
 		System.setProperty("Log4jContextSelector", "org.apache.logging.log4j.core.async.AsyncLoggerContextSelector");
 	}
@@ -68,46 +55,26 @@ public abstract class TestBase {
 	public void setUpPage(ITestContext context, Method method) throws MalformedURLException {
         ThreadContext.put("threadName", context.getName());
         Log.logger = LogManager.getLogger(getClass());
-		WebDriverFacade.createDriver();
 		Log.testStart(context.getName());
 		Log.testDescription(method.getAnnotation(Test.class).description());
-		user = new ThreadLocal<ZopaUser>();
-		user.set(new ZopaUser());
 	}
 
 	@AfterMethod(alwaysRun = true)
 	public void closeApp(ITestResult result, ITestContext context, Method method) {
-		String imageTitle = context.getName() + "_image_error";
-		String imagePath = screenshots + imageTitle + ".png";
-		try {
 		if (result.getStatus() == ITestResult.FAILURE) {
 			if ((Log.failReason != null && !Log.failReason.isEmpty())) Log.testFailReason();
 			Log.testFail(context.getName());
-			WebDriverFacade.takeScreenshot(imagePath);
-			getReport().fail(result.getThrowable().getMessage(), MediaEntityBuilder.createScreenCaptureFromBase64String(new String(Base64.getEncoder().encode(Files.readAllBytes(new File(imagePath).toPath())))).build());
+			getReport().fail(result.getThrowable().getMessage());
 		} else if (result.getStatus() == ITestResult.SKIP) {
 			Log.testSkipped(context.getName());
-			WebDriverFacade.takeScreenshot(imagePath);
-			getReport().skip(result.getThrowable().getMessage(), MediaEntityBuilder.createScreenCaptureFromBase64String(new String(Base64.getEncoder().encode(Files.readAllBytes(new File(imagePath).toPath())))).build());
+			getReport().skip(result.getThrowable().getMessage());
 		}
-	     } catch (IOException e) {
-			e.printStackTrace();
-			getReport().info("There was an error capturing screenshot > " + e.getMessage() + " caused by > " + e.getCause().getMessage());
-		}
-			WebDriverFacade.shutdown();
-			TestUtils.createJsonTestFile(context.getName(), user.get());
 			Log.testEnd(context.getName());
 	}
 	
 	@AfterSuite(alwaysRun = true)
 	public void endSuite()
 	{
-		if (Files.exists(new File(screenshots).toPath())) {
-			File screenshotFolder = new File(screenshots);
-			File[] files = screenshotFolder.listFiles();
-			for (File f : files) {
-				f.deleteOnExit();
-			}
-		}
+		
 	}
 }

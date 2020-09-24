@@ -32,9 +32,9 @@ public class GetRepositories extends TestBase {
     	Response response = RestAssured.given().auth().preemptive().oauth2(FrameworkProperties.getOAuth()).get();
 		int statusCode = response.getStatusCode();
     	Assert.assertTrue( response.getStatusCode() == 200, "Service response was " + statusCode);
-    	List<String> user = response.body().jsonPath().getList("$.name");
+    	List<String> repos = response.body().jsonPath().getList("name");
     	Log.logger.info("Validate that service response contains repo expected  " + username);
-    	Assert.assertTrue(user.stream().anyMatch(x -> x.equals(expectedRepo)), "Service response does not contain user charl1echa1ns1lver");
+    	Assert.assertTrue(repos.stream().anyMatch(x -> x.equals(expectedRepo)), "Service response does not contain user charl1echa1ns1lver");
     	Log.logger.info("Service Response was :", response.body().prettyPrint());
     }
 }

@@ -14,13 +14,13 @@ import io.restassured.response.Response;
 
 public class GetGitUser extends TestBase {
 	
-	@DataProvider (name = "data-provider")
+	@DataProvider (name = "data-provider2")
 	 public Object[][] dpMethod(){
 	 return new Object[][] {{"charl1echa1ns1lver"}};
 	 }
 	
     @Test( 	groups = {"demo"},
-    		dataProvider = "data-provider",
+    		dataProvider = "data-provider2",
             priority = 1,
             testName="TC01_GetGitUser",
             description="Get all git user information" )
@@ -32,7 +32,7 @@ public class GetGitUser extends TestBase {
     	Assert.assertTrue( response.getStatusCode() == 200, "Service response was " + statusCode);
     	String user = response.body().jsonPath().getString("login");
     	Log.logger.info("Validate that service response contains user " + username);
-    	Assert.assertTrue(user.equals(username), "Service response does not contain user charl1echa1ns1lver");
-    	Log.logger.info("Service Response was :", response.body().prettyPrint());
+    	Assert.assertTrue(user.contains(username), "Service response does not contain user charl1echa1ns1lver");
+    	response.body().prettyPeek();
     }
 }
